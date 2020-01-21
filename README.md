@@ -7,6 +7,42 @@ Take an input of a string and find the first character which only appears once i
 
 # Fibonacci 
 Implement a function fibonacci(int x) that returns the xth number in the fibonacci sequence. Must be order N time complexity and order 1 space complexity.
+public class Fibonacci {
+
+	public static void main(String args[]) {
+		System.out.println(calculateNthFib(9));
+		
+		System.out.println(calculateNthFibRec(9));
+	}
+	
+	public static int calculateNthFib(int x) {
+		int a = 1, b = 1, c =x;
+		if (x <= 0) {
+			return x;
+		}
+		for (int i = 2; i <= x; i++ ) {
+			c = a + b;
+			a = b;
+			b = c;
+		}
+		return b;
+	}
+	
+	public static int calculateNthFibRec(int x) {
+		if(x < 1)
+			return 0;
+		else if(x == 1 || x ==2) {
+			return 1;
+		} else {
+			return calculateNthFibRec(x-1) + calculateNthFibRec(x-2);
+		}
+		
+		
+	}
+	
+	
+	
+}
 
 # Fibonacci Memoization
 Calculate the nth fibonacci number recursively using memoization in javascript observing closure.
@@ -14,32 +50,332 @@ Calculate the nth fibonacci number recursively using memoization in javascript o
 # Pair Summing
 Write a function that counts how many pairs of numbers in an array add up to a given number. To follow up: how to do this more efficiently.
 
+
+public class PairSumming {
+
+	public static void main(String args[]) {
+		int[] numbers = {1,2,3,4,5,6,6,7,8,9};
+		int target = 12;
+		System.out.println(pairSumMatches(numbers, target)); //should be 3 3+9 4+8 5+7
+	}
+	
+	public static int pairSumMatches(int[ ] arrayOfNums, int target) {
+		int matchesFound = 0;
+		for(int i = 0; i < arrayOfNums.length; i++) {
+			for(int j = 0; j < arrayOfNums.length; j++) {
+				if (i != j && (arrayOfNums[i]+arrayOfNums[j]==target)) {
+					matchesFound ++;
+					
+				}
+			}
+		}
+		//we will find it twice
+		return matchesFound/2;
+		
+		//n-squared complexity
+		// can improve - order array
+		// find numbers less than target
+	}
+}
+
+
 # Letters of Alphabet
 Implement a function to determine which letters of the alphabet were missing from an input string.
 
 # Run Length Encoding *
 Given a string of characters return the run length encoded version. E.g. given the string “aabbbccddddaaa”, the return value would be “a2b3c2d4a3”.
 
+
+public class RunLengthEncoding {
+
+	public static void main(String args[]) {
+		System.out.println(runLengthEncoder("abcdefg"));
+	}
+	
+	
+	public static String runLengthEncoder(String inputString) {
+		StringBuilder sb = new StringBuilder();
+		char lastChar;
+		int currentLength = 0;
+		
+		if(inputString.length()>0)
+		{
+			lastChar = inputString.charAt(0);
+			for(int i =0; i<inputString.length(); i++) {
+				if(lastChar == inputString.charAt(i)) {
+					currentLength = currentLength + 1;
+				} else {
+					if(currentLength > 0) {
+						sb.append(lastChar).append(currentLength);
+					}
+					lastChar = inputString.charAt(i);
+					currentLength = 1;
+				}
+			}
+			sb.append(lastChar).append(currentLength);
+			
+		}
+		
+		
+		return sb.toString();
+	}
+}
+
+
 # Longest Substring
 Write a function that takes a string and returns the longest substring in that string made up of the same character and the index the substring starts on, e.g. given the string “aabbbccddddaaa” the substring is “dddd” starting at index 7.
+
+
+public class LongestSubString {
+
+	public static void main(String args[]) {
+		System.out.println(findLongestSubString("abbbbbbceeeeeeeeeeeeeeeeffffffggg"));
+	}
+	
+	
+	public static String findLongestSubString(String inputString) {
+		char lastChar;
+		int currentLength = 0;
+		int currentStartIndex = 0;
+		int maxLength =0;
+		int maxStartIndex = 0;
+		if(inputString.length()>0)
+		{
+			lastChar = inputString.charAt(0);
+			for(int i =0; i<inputString.length(); i++) {
+				if(lastChar == inputString.charAt(i)) {
+					currentLength = currentLength + 1;
+					if(currentLength > maxLength) {
+						maxLength = currentLength;
+						maxStartIndex = currentStartIndex;
+					}
+				} else {
+					currentStartIndex = i;
+					lastChar = inputString.charAt(i);
+					currentLength = 1;
+				}
+			}
+					
+		}
+	
+		StringBuilder sb = new StringBuilder();
+		sb.append(inputString.substring(maxStartIndex, maxStartIndex+maxLength));
+		sb.append(" found, starting at index ");
+		sb.append(maxStartIndex);
+		return sb.toString();
+	}
+}
+
 
 # Second Lowest Number
 Write a function that takes an array of numbers and returns the second lowest number in the array, or zero if the length of the array is less than two.
 
+
+public class SecondLowestNumber {
+
+	public static void main(String args[]) {
+		int[] numbers = {7,12,1,5,6,14,5,7,92,9,1,12,18,22,33,13};
+		System.out.println(findSecondLowest(numbers));
+	}
+	
+	
+	public static int findSecondLowest(int[] numbers) {
+		int lowest = numbers[0];
+		int secondLowest = Integer.MAX_VALUE;
+		if(numbers.length <=2) {
+			return 0;
+		}
+		for (int i =0; i< numbers.length; i++) {
+			if(numbers[i]<lowest) {
+				lowest = numbers[i];
+			}
+			if(numbers[i] > lowest && numbers[i]<secondLowest) {
+				secondLowest = numbers[i];
+				
+			}	
+		}
+		return secondLowest;
+	}
+}
+
+
 # Powers of 10
 Given a number x, write a function to determine if this is a power of 10. 
+
+
+public class PowersOfTen {
+
+	public static void main(String args[]) {
+		
+		System.out.println(isAPowerOfTen(60));
+		System.out.println(isAPowerOfTen(10000000));
+	}
+	public static boolean isAPowerOfTen(int x) {
+		boolean isAPowerOfTen = false;
+		while(x>1) {
+			if(x%10 == 0) {
+				x = x/10;
+				if(x == 1) {
+					isAPowerOfTen = true;
+					break;
+				}
+			}
+			else {
+				break;
+			}
+			
+		}
+		return isAPowerOfTen;
+	}
+}
+
 
 # Median of Two Arrays
 Given two sorted int arrays find the median element.
 
+public class Median2Arrays {
+		public static void main(String args[]) {
+			int[] a = {3,4,7,9,12,23,56,67,88,111,122,155,166};
+			int[] b = {4,73,89,99,121,122,155,212,213};
+			System.out.println(findMedianSortedArrays(a,b));
+		}
+	    public static double findMedianSortedArrays(int[] input1, int[] input2) {
+	       if(input1.length > input2.length) {
+	    	   //we want the first array to be shorter as it will solve in Olog(min(m,n))
+	    	   int[] temp = input2;
+	    	   input2 = input1;
+	    	   input1 = temp;
+	       }
+	    	
+	    	int x = input1.length;
+	        int y = input2.length;
+	        
+	        int low = 0;
+	        int high = x;
+	       
+	        while (low <= high) {
+	            int partitionX = (low + high)/2;
+	            int partitionY = (x + y + 1)/2 - partitionX;
+	            
+	            int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE: input1[partitionX -1];
+	            int minRightX = (partitionX == x) ? Integer.MAX_VALUE : input1[partitionX];
+	            
+	            int maxLeftY = (partitionY == 0) ?  Integer.MIN_VALUE: input2[partitionY -1];
+	            int minRightY = (partitionY == y) ? Integer.MAX_VALUE: input2[partitionY];
+	            
+	            if(maxLeftX <= minRightY && maxLeftY <= minRightX) {
+	            	//success
+	            	if((x+y) % 2 == 0) {
+	            		//even number of elements need to average the middle pair
+	            		return ((double)Math.max(maxLeftX, maxLeftY) + Math.min(minRightX, minRightY))/2;
+	            	} else {
+	            		//odd numbers the extra element is on the left.
+	            		return (double)Math.max(maxLeftX, maxLeftY);
+	            	}
+	            } else if (maxLeftX > minRightY) {
+	            	high = partitionX - 1;
+	            } else {
+	            	low = partitionX + 1;
+	            }
+	            
+	            
+	        }
+	        
+	        //probably unsorted arrays...
+	        throw new IllegalArgumentException();
+	    }
+	}
+
+
 # Sums of Consecutive Array Elements
 Given an array of non-negative integers and a target integer, find the length of the shortest continuous subsequence such that the sum is greater than the target.
+
+public class ShortestSubsequence {
+
+	public static void main(String args[]) {
+		int target = 21;
+		int[] a = {7,3,10,2,10};
+		
+		System.out.println(findShortestSequence(target, a));
+	}
+	
+	public static int findShortestSequence(int target, int[] a) {
+		boolean foundConseq;
+		int shortestFound = Integer.MAX_VALUE;
+		int count;
+		for(int i = 0; i< a.length; i++) {
+			foundConseq = false;
+			int total = a[i]; 
+			count = 1;
+			do {
+				if(total > target) {
+					foundConseq = true;
+				}
+				else {
+					if(i+count < a.length) {
+						total = total + a[i+count];
+						count = count +1;
+					}
+					else {
+						break;
+					}
+				}
+			}
+			while(!foundConseq);
+			if((count < shortestFound) && foundConseq) {
+				shortestFound = count;
+			}
+			
+			
+			
+		}
+		return shortestFound;
+	}
+}
+
 
 # Binary Search Tree
 Build a binary search tree from an array of numbers, given a BST class with a Node, and a Node class with a value, a left Node and a right Node. Then fix a traversal method, so that it does In-Order Traversal.
 
 # Prime Factorisation
 Factorise a given number, expressing the result as an int[] of primes. e.g. 6 = [2,3] and 12 = [2,2,3]
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PrimeFactorization {
+
+	public static void main(String args[]) {
+		int number = 2796707;
+		List<Integer> factors = factorise(number);
+		for(Integer factor: factors) {
+			System.out.println(factor);
+		}
+	}
+	public static boolean isAFactor(int number, int candidate) {
+		return number%candidate == 0;
+	}
+	
+	
+	public static List<Integer> factorise(int n) {
+		List<Integer> factors = new ArrayList<Integer>();
+		
+		for(int i=2; i<=n; i++) {
+			while(n % i == 0) {
+				factors.add(i);
+				n= n/i;
+				
+			}
+		}
+		
+		
+		
+		return factors;
+		
+		
+	}
+}
+
 
 # Longest Anagram from Dictionary 
 Given an array of words, find all the longest anagrams of the supplied letters. E.g. Dictionary = [“toe”, “toes”, “got”, “toga”, “other”], letters_1 = “otge”, result_1 = [“toe”, “got”],  letters_2 = “otes”, result_2 = [“toes”]. What if performance is important - e.g. the dictionary contains many thousands of words?
@@ -55,6 +391,52 @@ Eg - given [“cat”, “dog”, “god”, “cat”] return [[“cat”], [�
 Use a generator function to yield the primes down from n.
 E.g. function* countdownPrimes (n)
 Further points for tests and outputing the results as a single array afterwards.
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+public class PrimeCountdown {
+
+	
+	public static void main(String args[]) {
+		List<Integer> primes = getCountdownPrimes(3000);
+		for(int i: primes) {
+			System.out.println(i);
+		}
+	}
+	
+	public static boolean isPrime(int n, List<Integer> primes) {
+		int start =2;
+		if(primes.size() >0) {
+			for(int prime: primes) {
+				if(n%prime==0) {
+					start = prime;
+					return false;
+				}
+			}
+		}
+		for(int i =start; i<n; i++) {
+			if(n%i==0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static List<Integer> getCountdownPrimes(int n) {
+		List<Integer> primes = new ArrayList<Integer>();
+		for(int i = 2; i<=n; i++) {
+			if(isPrime(i, primes)) {
+				primes.add(i);
+				
+			}
+		}
+		Collections.reverse(primes);
+		return primes;
+		
+	}
+}
+
 
 # Longest Common Subsequence
 Given two sequences, find the length of longest subsequence present in both of them. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous. For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc are subsequences of “abcdefg”. So a string of length n has 2^n different possible subsequences.
