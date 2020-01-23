@@ -4,6 +4,30 @@
 
 # Single Character Search
 Take an input of a string and find the first character which only appears once in the string.
+public class MissingLetters {
+
+	public static void main(String args[]) {
+		System.out.println(getMissingLetters("abcfghklmpqruvwz"));
+	}
+	
+	public static String getMissingLetters(String inputString) {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<26;i++) {
+			char current = (char) ((char) 65 + i);
+			if((inputString.indexOf(65 + i)>-1) || (inputString.indexOf(97 + i)>-1)){
+				sb.append(current + ": found\n");
+			} else {
+				sb.append(current + ": not found\n");
+			}
+			
+		}
+		
+		return sb.toString();
+		
+		
+	}
+}
+
 
 # Fibonacci 
 Implement a function fibonacci(int x) that returns the xth number in the fibonacci sequence. Must be order N time complexity and order 1 space complexity.
