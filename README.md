@@ -489,6 +489,45 @@ public class PrimeCountdown {
 Given two sequences, find the length of longest subsequence present in both of them. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous. For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc are subsequences of “abcdefg”. So a string of length n has 2^n different possible subsequences.
 Solution see https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 
+
+public class LongestCommonSubsequence {
+	
+    public static int findLongestCommonSubsequence(char str1[],char str2[]){
+        //2d array 1 bigger than the size of the strings - all values will be zero
+        int temp[][] = new int[str1.length + 1][str2.length + 1];
+        int max = 0;
+        for(int i=1; i < temp.length; i++){
+            for(int j=1; j < temp[i].length; j++){
+                if(str1[i-1] == str2[j-1]) {
+                	//found a match - add 1 to diagonal up-left
+                    temp[i][j] = temp[i - 1][j - 1] + 1;
+                }
+                else
+                {
+                	//not match max of above or left
+                    temp[i][j] = Math.max(temp[i][j-1],temp[i-1][j]);
+                }
+                if(temp[i][j] > max){
+                    max = temp[i][j];
+                }
+            }
+        }
+        return max;
+    
+    }
+    
+    
+    public static void main(String args[]){
+        String str1 = "ABCDE";
+        String str2 = "AEBD";
+        
+        int result = findLongestCommonSubsequence(str1.toCharArray(), str2.toCharArray());
+        System.out.print(result);
+    }
+    
+}
+
+
 # Word Search
 Calculate the word that occurs most frequently in a block of text passed as a String[].  Where the word contains two or more vowels.
 As a follow up if there are multiple words with the same number of occurrences return the one that occurred first in the array.
