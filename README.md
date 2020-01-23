@@ -4,25 +4,23 @@
 
 # Single Character Search
 Take an input of a string and find the first character which only appears once in the string.
-public class MissingLetters {
+public class SingleCharacter {
 
 	public static void main(String args[]) {
-		System.out.println(getMissingLetters("abcfghklmpqruvwz"));
+		System.out.println(findFirstSingleCharacter("bbccddeffgghhijjkkllemmnn"));
 	}
 	
-	public static String getMissingLetters(String inputString) {
-		StringBuilder sb = new StringBuilder();
-		for(int i=0;i<26;i++) {
-			char current = (char) ((char) 65 + i);
-			if((inputString.indexOf(65 + i)>-1) || (inputString.indexOf(97 + i)>-1)){
-				sb.append(current + ": found\n");
-			} else {
-				sb.append(current + ": not found\n");
-			}
-			
+	public static String findFirstSingleCharacter(String inputString) {
+		
+		for(int index=0;index<inputString.length();index++) {
+			char current = inputString.charAt(index);
+			if(inputString.indexOf(current) ==
+					inputString.lastIndexOf(current)){
+						return Character.toString(current);
+					}
 		}
 		
-		return sb.toString();
+		return "not found any";
 		
 		
 	}
