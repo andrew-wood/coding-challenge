@@ -106,6 +106,31 @@ public class PairSumming {
 # Letters of Alphabet
 Implement a function to determine which letters of the alphabet were missing from an input string.
 
+public class MissingLetters {
+
+	public static void main(String args[]) {
+		System.out.println(getMissingLetters("abcfghklmpqruvwz"));
+	}
+	
+	public static String getMissingLetters(String inputString) {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<26;i++) {
+			char current = (char) ((char) 65 + i);
+			if((inputString.indexOf(65 + i)>-1) || (inputString.indexOf(97 + i)>-1)){
+				sb.append(current + ": found\n");
+			} else {
+				sb.append(current + ": not found\n");
+			}
+			
+		}
+		
+		return sb.toString();
+		
+		
+	}
+}
+
+
 # Run Length Encoding *
 Given a string of characters return the run length encoded version. E.g. given the string “aabbbccddddaaa”, the return value would be “a2b3c2d4a3”.
 
