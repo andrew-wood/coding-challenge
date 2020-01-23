@@ -434,6 +434,39 @@ Implement a MyHashMap class, which contained generic methods ‘put(K,V)’ and 
 Given a List of words, return a set of set of words where each word in an inner set is an anagram of every other word in the set.
 Eg - given [“cat”, “dog”, “god”, “cat”] return [[“cat”], [“dog”, “god”]].
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class AnagramSets {
+
+	public static void main(String args[]) {
+		String[] words = {"cat","dog","god"};
+		findAnagramSets(words);
+	}
+	
+	public static List<List<String>> findAnagramSets(String[] words){
+		List<List<String>> groups = new ArrayList<>();
+		HashMap<String, List<String>> map = new HashMap<>();
+		for(String word: words) {
+			char[] letters = word.toCharArray();
+			Arrays.sort(letters);
+			String sorted = new String(letters);
+			if(!map.containsKey(sorted)) {
+				map.put(sorted, new ArrayList<>());
+			}
+			map.get(sorted).add(word);
+		}
+		groups.addAll(map.values());
+		
+		return groups;
+	}
+	
+}
+
+
 # Prime Countdown Generator
 Use a generator function to yield the primes down from n.
 E.g. function* countdownPrimes (n)
