@@ -543,6 +543,47 @@ Given a set of time intervals in any order, merge all overlapping intervals into
 For example, let the given set of intervals be {{1,3}, {2,4}, {5,7}, {6,8} }. The intervals {1,3} and {2,4} overlap with each other, so they should be merged and become {1, 4}. Similarly {5, 7} and {6, 8} should be merged and become {5, 8}
 Solution see https://www.geeksforgeeks.org/merging-intervals/
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MergeOverlapIntervals {
+	public static void main(String argsp[]) {
+		int[][] intervals = {{2,6},{7,10},{12,23},{1,3}};
+		int [][] newIntervals = merge(intervals);
+		System.out.println(newIntervals);
+	}
+	
+	public static int[][] merge(int[][] intervals){
+		if(intervals.length <=1) {
+			return intervals;
+		}
+		
+		Arrays.sort(intervals,(arr1, arr2) -> Integer.compare(arr1[0], arr2[0]));
+		List<int[]> outputArr = new ArrayList<int[]>();
+		int[] currentInterval = intervals[0];
+		outputArr.add(currentInterval);
+		
+		
+		for(int[] interval: intervals) {
+			int end = currentInterval[1];
+			int nStart = interval[0];
+			int nEnd = interval[1];
+			
+			if(nStart < end) {
+				currentInterval[1] = nEnd;
+			} else {
+				outputArr.add(interval);
+			}
+			
+		}
+		return outputArr.toArray(new int[outputArr.size()][]);
+	}
+}
+
+
+
+
 # Highest Average Score *
 Find the highest student average score during their course.   If the average score is not an integer, then return floor.
 Input:
