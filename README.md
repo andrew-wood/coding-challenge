@@ -570,6 +570,30 @@ As a follow up if there are multiple words with the same number of occurrences r
 A Child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs
 Solution see https://www.geeksforgeeks.org/count-ways-reach-nth-stair-using-step-1-2-3/ and https://github.com/wzhishen/cracking-the-coding-interview/blob/master/src/chap09/Q01.java
 
+
+public class CountSteps {
+	 public static int countWays(int n) 
+	    { 
+	        int[] res = new int[n + 1]; 
+	        res[0] = 1; 
+	        res[1] = 1; 
+	        res[2] = 2; 
+	  
+	        for (int i = 3; i <= n; i++) 
+	            res[i] = res[i - 1] + res[i - 2] 
+	                                + res[i - 3]; 
+	  
+	        return res[n]; 
+	    } 
+	  
+	    public static void main(String argc[]) 
+	    { 
+	        int n = 4; 
+	        System.out.println(countWays(n)); 
+	    } 
+}
+
+
 # Robot Movement
 Given a string like “UDDLR” which corresponds to robot movements calculate the robots end coordinates when it starts at [0, 0]. Ignore all other characters given (“2xUP” would just move the robot up one) and the robot can move into negative coordinates.
 
