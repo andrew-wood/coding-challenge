@@ -384,6 +384,72 @@ public class ShortestSubsequence {
 # Binary Search Tree
 Build a binary search tree from an array of numbers, given a BST class with a Node, and a Node class with a value, a left Node and a right Node. Then fix a traversal method, so that it does In-Order Traversal.
 
+
+
+public class BT {
+	Node root;
+	class Node{
+		private Node left;
+		private Node right;
+		private int value;
+		
+		public Node(int item) {
+			value = item;
+			left =null;
+			right = null;
+		}
+		
+		public void insertLeft(Node node) {
+			this.left = node;
+		}
+		public void insertRight(Node node) {
+			this.right = node;
+		}
+		public void traverse() {
+			if(left!=null)
+				left.traverse();
+			System.out.println(this.value);
+			if(right!=null)
+				right.traverse();
+		}
+		public int getValue() {
+			return value;
+		}
+		public void insertNode(Node node) {
+			if(node.getValue() < value) {
+				if(left == null) {
+					insertLeft(node);
+				} else {
+					left.insertNode(node);
+				}
+			} else {
+				if(right ==null) {
+					insertRight(node);
+				} else {
+					right.insertNode(node);
+				}
+				
+			}
+		}
+	}
+	
+	
+	public static void main(String args[]) {
+		int[] values = {4,3,6,3,7,2,8,3,4,6,3};
+		BT root = new BT();
+		root.root = root.new Node(4);
+		for(int i=1; i<values.length; i++) {
+			BT.Node n = root.new Node(values[i]);
+			root.root.insertNode(n);
+		}
+		
+		root.root.traverse();
+	}
+	
+	
+}
+
+
 # Prime Factorisation
 Factorise a given number, expressing the result as an int[] of primes. e.g. 6 = [2,3] and 12 = [2,2,3]
 
