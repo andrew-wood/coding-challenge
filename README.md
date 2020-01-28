@@ -29,6 +29,7 @@ public class SingleCharacter {
 
 # Fibonacci 
 Implement a function fibonacci(int x) that returns the xth number in the fibonacci sequence. Must be order N time complexity and order 1 space complexity.
+<code>
 public class Fibonacci {
 
 	public static void main(String args[]) {
@@ -65,6 +66,7 @@ public class Fibonacci {
 	
 	
 }
+</code>
 
 # Fibonacci Memoization
 Calculate the nth fibonacci number recursively using memoization in javascript observing closure.
