@@ -663,6 +663,48 @@ public class CountSteps {
 # Robot Movement
 Given a string like “UDDLR” which corresponds to robot movements calculate the robots end coordinates when it starts at [0, 0]. Ignore all other characters given (“2xUP” would just move the robot up one) and the robot can move into negative coordinates.
 
+public class RobotMovement {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String input1  = "UDDLR";
+		int[] coords = getCoordinates(input1);
+	}
+	
+	
+	public static int[] getCoordinates(String movementString) {
+		int[] coords = {0,0};
+		
+		char[] moves = movementString.toCharArray();
+		
+		for(int i=0; i<moves.length; i++) {
+			switch(moves[i]) {
+			case 'U':
+				coords[1] = coords[1] +1;
+				break;
+			case 'D':
+				coords[1] = coords[1] -1;
+				break;
+			case 'L':
+				coords[0] = coords[0] -1;
+				break;
+			case 'R':
+				coords[0] = coords[0] +1;
+			}
+			
+			
+			
+		}
+		
+		return coords;
+		
+	}
+	
+
+}
+
+
 # Merge Overlapping Intervals
 Given a set of time intervals in any order, merge all overlapping intervals into one and output the result which should have only mutually exclusive intervals. Let the intervals be represented as pairs of integers for simplicity. 
 For example, let the given set of intervals be {{1,3}, {2,4}, {5,7}, {6,8} }. The intervals {1,3} and {2,4} overlap with each other, so they should be merged and become {1, 4}. Similarly {5, 7} and {6, 8} should be merged and become {5, 8}
