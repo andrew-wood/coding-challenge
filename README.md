@@ -485,7 +485,10 @@ Given an array of words, find all the longest anagrams of the supplied letters. 
 			String[] dictionary = {"toe","toes","got","toga","other"};
 			Map<String, List<String>> hashedDictionary = generateDictionaryHash(dictionary);
 
-
+			String[] words = getLongestAnagram("eot", hashedDictionary);
+			for(String word: words) {
+				System.out.println(word);
+			}
 
 		}
 
@@ -509,9 +512,21 @@ Given an array of words, find all the longest anagrams of the supplied letters. 
 		}
 
 		public static String[] getLongestAnagram(String letters, Map<String, List<String>> hashedDictionary ) {
-			String[] anagrams = {""};
+			String[] anagrams;
 			char[] chars = letters.toCharArray();
 			Arrays.sort(chars);
+
+			String key = new String(chars);
+			if(hashedDictionary.containsKey(key)) {
+				List<String> l1 = hashedDictionary.get(key);
+				anagrams = new String[l1.size()];
+				for(int i =0; i<anagrams.length; i++) {
+					anagrams[i] = l1.get(i);
+				}
+			}
+			else {
+				anagrams = new String[0];
+			}
 			return anagrams;
 		}
 	}
