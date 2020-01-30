@@ -472,6 +472,50 @@ Factorise a given number, expressing the result as an int[] of primes. e.g. 6 = 
 # Longest Anagram from Dictionary 
 Given an array of words, find all the longest anagrams of the supplied letters. E.g. Dictionary = [“toe”, “toes”, “got”, “toga”, “other”], letters_1 = “otge”, result_1 = [“toe”, “got”],  letters_2 = “otes”, result_2 = [“toes”]. What if performance is important - e.g. the dictionary contains many thousands of words?
 
+	import java.util.ArrayList;
+	import java.util.Arrays;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.Map;
+
+	public class LongestAnagram {
+
+		public static void main(String args[]) {
+			String[] dictionary = {"toe","toes","got","toga","other"};
+			Map<String, List<String>> hashedDictionary = generateDictionaryHash(dictionary);
+
+
+
+		}
+
+		public static Map<String, List<String>> generateDictionaryHash(String[] dictionary) {
+			Map<String, List<String>> hashedDictionary = new HashMap<String, List<String>>();
+
+			for(int i=0;i<dictionary.length; i++) {
+				char[] letters = dictionary[i].toCharArray();
+				Arrays.sort(letters);
+				String orderedKey = new String(letters);
+
+				if(hashedDictionary.containsKey(orderedKey)) {
+					hashedDictionary.get(orderedKey).add(dictionary[i]);
+				} else {
+					List<String> words = new ArrayList<>();
+					words.add(dictionary[i]);
+					hashedDictionary.put(orderedKey, words);
+				}
+			}
+			return hashedDictionary;
+		}
+
+		public static String[] getLongestAnagram(String letters, Map<String, List<String>> hashedDictionary ) {
+			String[] anagrams = {""};
+			char[] chars = letters.toCharArray();
+			Arrays.sort(chars);
+			return anagrams;
+		}
+	}
+
+
 # Hash Map
 Implement a MyHashMap class, which contained generic methods ‘put(K,V)’ and ‘get(K)’ which would perform in constant time. 
 
