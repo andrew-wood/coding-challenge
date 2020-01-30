@@ -475,6 +475,64 @@ Given an array of words, find all the longest anagrams of the supplied letters. 
 # Hash Map
 Implement a MyHashMap class, which contained generic methods ‘put(K,V)’ and ‘get(K)’ which would perform in constant time. 
 
+	import java.util.ArrayList;
+
+	class MyHashMap<K, V> {
+		private ArrayList <HashNode<K,V>> bucketArray;
+		private int numBuckets;
+		private int size;
+		public MyHashMap() {
+			bucketArray = new ArrayList<>();
+			numBuckets = 64;
+			size = 0;
+			for(int i =0; i<numBuckets; i++) {
+				bucketArray.add(null);
+			}
+		}
+		public void put(K key, V value) {
+			int bucketIndex =getBucketIndex(key);
+
+		}
+		public int size() { 
+			return size;
+		}
+		public boolean isEmpty() {
+			return size() == 0;
+		}
+
+		private int getBucketIndex(K key) {
+			int hashCode = key.hashCode();
+			int index = hashCode % numBuckets;
+			return index;
+		}
+		public V get(K key) {
+			int bucketIndex = getBucketIndex(key);
+			HashNode<K, V> head = bucketArray.get(bucketIndex);
+
+			while(head != null) {
+				if(head.key.equals(key))
+					return head.value;
+				head = head.next;
+			}
+
+			return null;
+
+		}
+	}
+
+
+	class HashNode<K, V> {
+		K key;
+		V value;
+
+		HashNode<K, V> next;
+		public HashNode(K key, V value) {
+			this.key =key;
+			this.value = value;
+		}
+	}
+
+
 # Anagram Sets
 Given a List of words, return a set of set of words where each word in an inner set is an anagram of every other word in the set.
 Eg - given [“cat”, “dog”, “god”, “cat”] return [[“cat”], [“dog”, “god”]].
