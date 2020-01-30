@@ -855,3 +855,50 @@ String[][] scores = {
 }
 Test case:
 highestAvgScore(scores) == 87
+
+	import java.util.ArrayList;
+	import java.util.HashMap;
+	import java.util.List;
+	import java.util.Map;
+
+	public class HighestAverage {
+
+		public static void main(String[] args) {
+			String[][] scores = {{"George", "87"}, {"Charles", "100"}, {"Bob", "64"}, {"Charles", "22"}};
+			System.out.println(calculateHighestAverage(scores));
+
+		}
+		public static int calculateHighestAverage(String[][] scores) {
+
+			Map<String, List<Integer>> scoreEntries = new HashMap<String, List<Integer>>();
+			for(int i = 0; i < scores.length; i++) {
+				String name = scores[i][0];
+				String score = scores[i][1];
+
+				if(scoreEntries.containsKey(name)) {
+					scoreEntries.get(name).add(Integer.valueOf(score));
+				}
+				else {
+					List<Integer> scoreList = new ArrayList<>();
+					scoreList.add(Integer.valueOf(score));
+
+					scoreEntries.put(name, scoreList);
+				}
+			}
+
+			int highestAverage = 0;
+			for(String key: scoreEntries.keySet()) {
+				List<Integer> userScores = scoreEntries.get(key);
+				int total = 0;
+				for(Integer sc: userScores) {
+					total+=sc;
+				}
+				int average = total / userScores.size();
+				if(average > highestAverage) {
+					highestAverage = average;
+				}
+			}
+			return highestAverage;
+		}
+
+	}
