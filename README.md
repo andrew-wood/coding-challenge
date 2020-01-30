@@ -608,6 +608,69 @@ Solution see https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 Calculate the word that occurs most frequently in a block of text passed as a String[].  Where the word contains two or more vowels.
 As a follow up if there are multiple words with the same number of occurrences return the one that occurred first in the array.
 
+	import java.util.HashMap;
+	import java.util.Map;
+
+	public class WordSearch {
+
+		public static void main(String args[]) {
+			String[] words = {"The", "most", "potential", "football", "football", "potential", "potential"};
+		
+			System.out.println(mostFrequentWord(words));
+		}
+	
+		public static String mostFrequentWord(String[] words) {
+			Map<String, Integer> wordCount = new HashMap<String, Integer>();
+			for(int i = 0; i< words.length; i++) {
+				if(contains2OrMoreVowels(words[i])){
+					if(wordCount.containsKey(words[i])) {
+						int count = wordCount.get(words[i]) +1;
+						wordCount.replace(words[i], count);
+					}
+					else {
+						wordCount.put(words[i], 1);
+					}
+				
+				}
+			}
+		
+			int most = 0;
+			String mostWord = "";
+			for(String word: wordCount.keySet()) {
+				int count = wordCount.get(word);
+				if(count > most) {
+					most = count;
+					mostWord = word;
+				}
+
+			}
+
+			return mostWord;
+		}
+
+		public static boolean contains2OrMoreVowels(String word) {
+			char[] letters = word.toCharArray();
+			boolean isAWord = false;
+			int vowelCount = 0;
+			char[] vowels = {'A','a','E','e','I','i','O','o','U','u'};
+			for(int i=0; i< letters.length; i++) {
+				for(int j=0; j< vowels.length; j++) {
+					if(letters[i]==vowels[j]) {
+						vowelCount++;
+						break;
+					}
+				}
+				if(vowelCount >=2) {
+					isAWord=true;
+					break;
+				}
+			}
+			return isAWord;
+		}
+
+	}
+
+
 
 # Triple Step
 A Child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at a time. Implement a method to count how many possible ways the child can run up the stairs
