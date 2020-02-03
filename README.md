@@ -982,16 +982,13 @@ highestAvgScore(scores) == 87
 		}
 
 		static int getMaxRoute(int row, int column, int[][] grid) {
-			if(row < 0 || column>=grid[0].length) {
-				return Integer.MIN_VALUE;
-			}
 			int currentSquare = grid[row][column];
 			if (row==0 && column == grid[0].length -1) {
 				return currentSquare;
 			}
 			else {
-				int up = getMaxRoute(row-1, column, grid);
-				int right = getMaxRoute(row, column+1, grid);
+				int up = (row==0)?Integer.MIN_VALUE : getMaxRoute(row-1, column, grid);
+				int right =(column==grid[0].length-1)? Integer.MIN_VALUE :  getMaxRoute(row, column+1, grid);
 				return currentSquare + Math.max(up, right);
 			}
 
