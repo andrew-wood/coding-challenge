@@ -969,27 +969,32 @@ highestAvgScore(scores) == 87
 
 # 
 
-	public class Pathfinder {
+	public class PathFinding2DArray {
 
-	public static void main(String[] args) {
-		int row =2;
-		int column =0;
-		int[][] grid = {{0,0,0,0,5},
-						{0,1,1,1,0},
-						{2,0,0,0,0}};		
-		System.out.println(getMaxRoute(row,column, grid));
+		public static void main(String[] args) {
+			int row =2;
+			int column =0;
+			int[][] grid = {{0,0,0,0,5},
+							{0,1,1,1,0},
+							{2,0,0,0,0}};		
+			System.out.println(getMaxRoute(row,column, grid));
 
-	}
-
-	static int getMaxRoute(int row, int column, int[][] grid) {
-		if (row==0 && column == grid[0].length -1) {
-			return grid[row][column];
 		}
-		if(row < 0 || column>=grid[0].length) {
-			return Integer.MIN_VALUE;
-		} 
-		
-		return grid[row][column] + Math.max(getMaxRoute(row-1, column, grid), 
-				getMaxRoute(row, column+1, grid));
+
+		static int getMaxRoute(int row, int column, int[][] grid) {
+			if(row < 0 || column>=grid[0].length) {
+				return Integer.MIN_VALUE;
+			}
+			int currentSquare = grid[row][column];
+			if (row==0 && column == grid[0].length -1) {
+				return currentSquare;
+			}
+			else {
+				int up = getMaxRoute(row-1, column, grid);
+				int right = getMaxRoute(row, column+1, grid);
+				return currentSquare + Math.max(up, right);
+			}
+
+		}
 	}
-}
+
